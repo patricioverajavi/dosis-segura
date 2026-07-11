@@ -68,6 +68,17 @@ dependencies {
 // OkHttp para logs (ver las llamadas HTTP)
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
+// Pruebas de integración ← NUEVAS
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:core:1.5.0")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
+//dependencias de espreso
+    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

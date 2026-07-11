@@ -12,7 +12,10 @@ import java.util.List;
 @Dao
 public interface MedicamentoDao {
 
-    // Método síncrono para usar dentro del Worker
+    // Método síncrono para usar dentro del Worker y Pruebas
+    @Query("SELECT * FROM medicamentos")
+    List<Medicamento> getAllDirecto();
+
     @Query("SELECT * FROM medicamentos WHERE isFavorito = 1")
     List<Medicamento> getFavoritosDirecto();
 
@@ -35,4 +38,5 @@ public interface MedicamentoDao {
     // Borrar un medicamento
     @Delete
     void delete(Medicamento medicamento);
+
 }

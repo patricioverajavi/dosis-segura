@@ -28,22 +28,21 @@ public class LoginActivity extends AppCompatActivity {
 
         // Evento para ingresar con credenciales
         btnIngresar.setOnClickListener(v -> {
-            // CORREGIDO: Usamos txtUsuario y txtContrasena que definiste arriba
-            String usuario = txtUsuario.getText().toString();
-            String pass = txtContrasena.getText().toString();
+            String usuario = txtUsuario.getText().toString().trim();
+            String pass = txtContrasena.getText().toString().trim();
 
-            // Solo validamos al hacer clic
-            if (usuario.isEmpty() || pass.isEmpty()) {
-                com.google.android.material.snackbar.Snackbar.make(
-                        findViewById(android.R.id.content),
-                        "Por favor completa todos los campos",
-                        com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
-                ).show();
+            if (usuario.isEmpty()) {
+                txtUsuario.setError("El correo es obligatorio");
+            } else if (pass.isEmpty()) {
+                txtContrasena.setError("La contraseña es obligatoria");
+            } else if (!isValidEmail(usuario)) {
+                mostrarError("Correo electrónico inválido (debe contener @)");
+            } else if (!isValidPassword(pass)) {
+                mostrarError("La contraseña debe tener al menos 6 caracteres");
             } else {
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("tipo_ingreso", "usuario");
-                intent.putExtra("nombre_usuario", usuario); // Ya no necesitas el if extra porque el isEmpty lo valida arriba
-
+                intent.putExtra("nombre_usuario", usuario);
                 startActivity(intent);
                 finish();
             }
@@ -62,5 +61,23 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, RegistroActivity.class);
             startActivity(intent);
         });
+    }
+
+    // Prueba 1: Validación de correo
+    public boolean isValidEmail(String email) {
+        return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    // Prueba 2: Validación de contraseña (mínimo 6 caracteres)
+    public boolean isValidPassword(String password) {
+        return password != null && password.length() >= 6;
+    }
+
+    private void mostrarError(String mensaje) {
+        com.google.android.material.snackbar.Snackbar.make(
+                findViewById(android.R.id.content),
+                mensaje,
+                com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+        ).show();
     }
 }

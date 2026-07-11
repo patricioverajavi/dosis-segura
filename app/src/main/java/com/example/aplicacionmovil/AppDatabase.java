@@ -5,12 +5,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Medicamento.class}, version = 2, exportSchema = false)
+@Database(entities = {Medicamento.class, Usuario.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instancia;
 
     public abstract MedicamentoDao medicamentoDao();
+    public abstract UsuarioDao usuarioDao();
     public static AppDatabase getDatabase(final Context context) {
         if (instancia == null) {
             synchronized (AppDatabase.class) {
