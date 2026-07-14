@@ -35,27 +35,36 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <!-- CORRECCIÓN: botón favorito con etiqueta de texto -->
+        <!-- ÁREA DE FAVORITO MEJORADA -->
         <LinearLayout
+            android:id="@+id/btnFavoritoContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/btn_favorito_selector"
+            android:minWidth="60dp"
+            android:minHeight="50dp">
 
             <ImageView
                 android:id="@+id/btnEstrella"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@android:drawable/btn_star_big_off"
-                android:padding="2dp" />
+                android:duplicateParentState="true" />
 
             <TextView
+                android:id="@+id/txtFavoritoEtiqueta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Favorito"
-                android:textSize="8sp"
+                android:text="Guardar"
+                android:textSize="10sp"
                 android:textColor="#5b3ff1"
-                android:layout_marginTop="2dp"/>
+                android:textStyle="bold"
+                android:duplicateParentState="true"/>
 
         </LinearLayout>
 

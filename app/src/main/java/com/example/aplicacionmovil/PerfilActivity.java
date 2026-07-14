@@ -82,10 +82,10 @@ public class PerfilActivity extends AppCompatActivity {
         btnAccionSesion.setOnClickListener(accionSalir);
         btnCerrarSesion.setOnClickListener(accionSalir);
 
-        // 5. IMPLEMENTACIÓN DE FAVORITOS (Lo que preguntabas)
+        // 5. IMPLEMENTACIÓN DE FAVORITOS
         cardMisFavoritos.setOnClickListener(v -> {
-            // Aquí navegas a la pantalla de tus favoritos
             Intent intent = new Intent(this, FavoritosActivity.class);
+            intent.putExtra("tipo_ingreso", getIntent().getStringExtra("tipo_ingreso"));
             startActivity(intent);
         });
 

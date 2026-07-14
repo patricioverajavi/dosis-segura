@@ -75,14 +75,27 @@ public class MainActivity extends AppCompatActivity {
         txtContadorVitaminas = findViewById(R.id.txtContadorVitaminas);
         btnFavoritos = findViewById(R.id.btnFavoritos);
 
+        if ("invitado".equals(getIntent().getStringExtra("tipo_ingreso"))) {
+            btnFavoritos.setVisibility(android.view.View.GONE);
+        }
+
         Button btnFda = findViewById(R.id.btnFda);
         if (btnFda != null) {
             btnFda.setOnClickListener(v -> {
                 startActivity(new Intent(MainActivity.this, FdaActivity.class));
             });
         }
-        findViewById(R.id.btnAgregar).setOnClickListener(v ->
-                startActivity(new Intent(this, AgregarMedicamentoActivity.class)));
+        findViewById(R.id.btnAgregar).setOnClickListener(v -> {
+            if ("invitado".equals(getIntent().getStringExtra("tipo_ingreso"))) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Acceso Limitado")
+                        .setMessage("Los invitados no pueden agregar nuevos medicamentos.")
+                        .setPositiveButton("Entendido", null)
+                        .show();
+            } else {
+                startActivity(new Intent(this, AgregarMedicamentoActivity.class));
+            }
+        });
 
         findViewById(R.id.btnAgregar).setOnLongClickListener(v -> {
             startActivity(new Intent(this, FdaActivity.class));
@@ -109,9 +122,11 @@ public class MainActivity extends AppCompatActivity {
         rvAntibioticos.setLayoutManager(new GridLayoutManager(this, 3));
         rvVitaminas.setLayoutManager(new GridLayoutManager(this, 3));
 
-        adapterAnalgesicos = new MedicamentoAdapter(viewModel, new ArrayList<>(), "Analgésicos");
-        adapterAntibioticos = new MedicamentoAdapter(viewModel, new ArrayList<>(), "Antibióticos");
-        adapterVitaminas = new MedicamentoAdapter(viewModel, new ArrayList<>(), "Vitaminas");
+        boolean esInvitado = "invitado".equals(getIntent().getStringExtra("tipo_ingreso"));
+
+        adapterAnalgesicos = new MedicamentoAdapter(viewModel, new ArrayList<>(), "Analgésicos", esInvitado);
+        adapterAntibioticos = new MedicamentoAdapter(viewModel, new ArrayList<>(), "Antibióticos", esInvitado);
+        adapterVitaminas = new MedicamentoAdapter(viewModel, new ArrayList<>(), "Vitaminas", esInvitado);
 
         rvAnalgesicos.setAdapter(adapterAnalgesicos);
         rvAntibioticos.setAdapter(adapterAntibioticos);

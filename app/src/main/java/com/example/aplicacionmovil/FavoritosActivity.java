@@ -36,7 +36,8 @@ public class FavoritosActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MedicamentoViewModel.class);
 
         // 4. Inicializar adaptador con lista vacía
-        adapter = new MedicamentoAdapter(viewModel, new ArrayList<>(), "favoritos");
+        boolean esInvitado = "invitado".equals(getIntent().getStringExtra("tipo_ingreso"));
+        adapter = new MedicamentoAdapter(viewModel, new ArrayList<Medicamento>(), "favoritos", esInvitado);
         rvFavoritos.setAdapter(adapter);
 
         // 5. OBSERVAR los cambios en la Base de Datos en tiempo real

@@ -41,6 +41,8 @@ public class AgregarMedicamentoActivity extends AppCompatActivity {
 
         // ¿Recibimos un ID? → modo editar
         int id = getIntent().getIntExtra("medicamento_id", -1);
+        boolean soloVer = getIntent().getBooleanExtra("solo_ver", false);
+
         if (id != -1) {
             // Busca el medicamento en la BD y precarga los campos
             viewModel.getTodos().observe(this, lista -> {
@@ -48,11 +50,12 @@ public class AgregarMedicamentoActivity extends AppCompatActivity {
                     if (m.id == id) {
                         medicamentoEditar = m;
                         precargarCampos(m);
+                        if (soloVer) configurarModoConsulta();
                         break;
                     }
                 }
             });
-            tvTitulo.setText("Editar Medicamento");
+            tvTitulo.setText(soloVer ? "Detalle del Medicamento" : "Editar Medicamento");
             btnGuardar.setText("Actualizar");
         } else {
             tvTitulo.setText("Agregar Medicamento");
@@ -60,6 +63,23 @@ public class AgregarMedicamentoActivity extends AppCompatActivity {
         }
 
         btnGuardar.setOnClickListener(v -> guardarOActualizar());
+    }
+
+    private void configurarModoConsulta() {
+        // Deshabilitar todos los campos
+        etNombre.setEnabled(false);
+        etDescripcion.setEnabled(false);
+        etDosis.setEnabled(false);
+        etPresentacion.setEnabled(false);
+        etPrincipioActivo.setEnabled(false);
+        etFabricante.setEnabled(false);
+        etIndicaciones.setEnabled(false);
+        etContraindicaciones.setEnabled(false);
+        etAdvertencias.setEnabled(false);
+        etCategoria.setEnabled(false);
+
+        // Ocultar botón de guardar
+        btnGuardar.setVisibility(android.view.View.GONE);
     }
 
     private void precargarCampos(Medicamento m) {
@@ -116,7 +136,7 @@ public class AgregarMedicamentoActivity extends AppCompatActivity {
                     nombre, descripcion, presentacion, dosis,
                     contraindicaciones, advertencias,
                     principioActivo, fabricante, indicaciones,
-                    categoria, false
+                    categoria, false, false // esOficial = false para nuevos medicamentos
             );
             viewModel.insert(nuevo);
 

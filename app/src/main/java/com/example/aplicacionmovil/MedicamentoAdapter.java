@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog; // Importación necesaria para el diálogo
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,13 +18,13 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
     private List<Medicamento> listaMedicamentos;
     private MedicamentoViewModel viewModel;
     private String categoria;
+    private boolean isInvitado;
 
-    // ACTUALIZA ESTE CONSTRUCTOR
-
-    public MedicamentoAdapter(MedicamentoViewModel viewModel, ArrayList<Medicamento> lista, String cat) {
+    public MedicamentoAdapter(MedicamentoViewModel viewModel, ArrayList<Medicamento> lista, String cat, boolean isInvitado) {
         this.viewModel = viewModel;
         this.listaMedicamentos = lista;
         this.categoria = cat;
+        this.isInvitado = isInvitado;
     }
 
     public void actualizarLista(List<Medicamento> nuevaLista) {
@@ -44,12 +45,27 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
         holder.txtNombre.setText(m.nombre);
         holder.txtDosis.setText(m.presentacion);
 
-        // 1. Configurar icono estrella UNA SOLA VEZ
-        holder.btnEstrella.setImageResource(m.isFavorito ?
-                android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
+        // 1. Configurar icono estrella y texto
+        if (isInvitado) {
+            holder.btnEstrella.setImageResource(android.R.drawable.btn_star_big_off);
+            holder.txtFavoritoEtiqueta.setText("Guardar");
+        } else {
+            holder.btnEstrella.setImageResource(m.isFavorito ?
+                    android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off);
+            holder.txtFavoritoEtiqueta.setText(m.isFavorito ? "Guardado" : "Guardar");
+        }
 
-        // 2. Lógica del botón estrella
-        holder.btnEstrella.setOnClickListener(v -> {
+        // 2. Lógica del botón favorito (contenedor completo para mayor touch target)
+        holder.btnFavoritoContainer.setOnClickListener(v -> {
+            if (isInvitado) {
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Acceso Limitado")
+                        .setMessage("Los invitados no pueden gestionar favoritos.")
+                        .setPositiveButton("Entendido", null)
+                        .show();
+                return;
+            }
+
             if (m.isFavorito) {
                 new AlertDialog.Builder(v.getContext())
                         .setTitle("Quitar de favoritos")
@@ -72,15 +88,26 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
                 );
             }
         });
-        // Click normal → abrir formulario de edición
+        // Click normal → abrir formulario (modo ver para invitados o para medicamentos oficiales)
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), AgregarMedicamentoActivity.class);
-            intent.putExtra("medicamento_id", m.id);  // ← pasamos el ID
+            intent.putExtra("medicamento_id", m.id);
+            // Si es invitado O es un medicamento oficial, solo se puede ver
+            boolean soloVer = isInvitado || m.esOficial;
+            intent.putExtra("solo_ver", soloVer); 
             ((android.app.Activity) v.getContext()).startActivity(intent);
         });
 
-// Long click → diálogo de confirmación eliminar
+        // Long click → diálogo de confirmación eliminar (Bloqueado para invitados y para oficiales)
         holder.itemView.setOnLongClickListener(v -> {
+            if (isInvitado) {
+                Toast.makeText(v.getContext(), "Invitados no pueden eliminar datos", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            if (m.esOficial) {
+                Toast.makeText(v.getContext(), "No se pueden eliminar medicamentos del catálogo oficial", Toast.LENGTH_SHORT).show();
+                return true;
+            }
             new androidx.appcompat.app.AlertDialog.Builder(v.getContext())
                     .setTitle("Eliminar medicamento")
                     .setMessage("¿Deseas eliminar " + m.nombre + "?")
@@ -108,14 +135,17 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
     }
 
     public static class MedicamentoViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNombre, txtDosis;
+        TextView txtNombre, txtDosis, txtFavoritoEtiqueta;
         ImageView btnEstrella;
+        View btnFavoritoContainer;
 
         public MedicamentoViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNombre = itemView.findViewById(R.id.txtNombre);
             txtDosis = itemView.findViewById(R.id.txtDosis);
             btnEstrella = itemView.findViewById(R.id.btnEstrella);
+            txtFavoritoEtiqueta = itemView.findViewById(R.id.txtFavoritoEtiqueta);
+            btnFavoritoContainer = itemView.findViewById(R.id.btnFavoritoContainer);
         }
     }
 }

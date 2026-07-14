@@ -23,12 +23,13 @@ public class Medicamento implements Serializable {
     @ColumnInfo(name = "indicaciones") public String indicaciones;
     @ColumnInfo(name = "categoria") public String categoria;
     @ColumnInfo(name = "isFavorito") public boolean isFavorito;
+    @ColumnInfo(name = "esOficial") public boolean esOficial;
 
     // CONSTRUCTOR PRINCIPAL: Obligatorio para Room
     // Debe incluir todos los campos definidos en la clase
     public Medicamento(String nombre, String descripcion, String presentacion, String dosis,
                        String contraindicaciones, String advertencias, String principioActivo,
-                       String fabricante, String indicaciones, String categoria, boolean isFavorito) {
+                       String fabricante, String indicaciones, String categoria, boolean isFavorito, boolean esOficial) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.presentacion = presentacion;
@@ -40,6 +41,7 @@ public class Medicamento implements Serializable {
         this.indicaciones = indicaciones;
         this.categoria = categoria;
         this.isFavorito = isFavorito;
+        this.esOficial = esOficial;
     }
 
     // Constructor de compatibilidad (usado solo si no quieres cambiar cada línea de MainActivity)
@@ -49,6 +51,14 @@ public class Medicamento implements Serializable {
                        String contraindicaciones, String advertencias, String principioActivo,
                        String fabricante, String indicaciones) {
         this(nombre, descripcion, presentacion, dosis, contraindicaciones, advertencias,
-                principioActivo, fabricante, indicaciones, "General", false);
+                principioActivo, fabricante, indicaciones, "General", false, true);
+    }
+
+    @Ignore
+    public Medicamento(String nombre, String descripcion, String presentacion, String dosis,
+                       String contraindicaciones, String advertencias, String principioActivo,
+                       String fabricante, String indicaciones, String categoria, boolean isFavorito) {
+        this(nombre, descripcion, presentacion, dosis, contraindicaciones, advertencias,
+                principioActivo, fabricante, indicaciones, categoria, isFavorito, true);
     }
 }
