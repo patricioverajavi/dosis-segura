@@ -106,6 +106,20 @@ Ejecutar la aplicación en un emulador o dispositivo físico
 <img width="413" height="810" alt="pantalla" src="https://github.com/user-attachments/assets/714b2a32-3a5f-4987-a849-dbc93456b524" />
 
 ---
+## 🐞 Registro de Incidencias (Bugs)
+
+| # | Bug reportado | Fuente | Severidad | Causa raíz | Estado | Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | Categorías no claras visualmente | Compañero 2 | Media | Sin diferenciación visual entre categorías | ✅ Corregido | fix: categorías con colores diferenciados |
+| 2 | Favoritos no se descubren solos | Compañero 1 | Media | Ícono sin etiqueta ni indicación visible | ✅ Corregido | fix: ícono favoritos con etiqueta visible |
+| 3 | Falta sección medicamentos peligrosos | Compañero 3 | Media | Funcionalidad no implementada en MVP, diferida a futura | ⏳ Pendiente v1.1 | fix: integración de alertas de seguridad |
+
+---
+## 📱 Capturas de Pantalla
+| Pantalla Login | Pantalla Principal | Detalle Medicamento |
+| :---: | :---: | :---: |
+| ![login_actualizado.png](../../../../../../../../../../Im%C3%A1genes/Screenshots/login_actualizado.png)<img src="URL_IMAGEN_LOGIN" width="200" /> | ![img.png](img.png)<img src="URL_IMAGEN_INICIO" width="200" /> | ![img_1.png](img_1.png)<img src="URL_IMAGEN_DETALLE" width="200" /> |
+---
 
 ## 👨‍💻 Autor
 Patricio Javier Vera Fernández  
