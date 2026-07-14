@@ -214,6 +214,13 @@ Ejecutar la aplicación en un emulador o dispositivo físico
 
 \---
 
+<img width="365" height="802" alt="login_actualizado" src="https://github.com/user-attachments/assets/5c6f8475-1276-46b6-a9fd-abfb28e395b8" />
+
+<img width="753" height="355" alt="pantallaprincipal" src="https://github.com/user-attachments/assets/a93c28bd-4dff-4b59-9b5b-660073a3a887" />
+
+
+
+<img width="720" height="1600" alt="detalles" src="https://github.com/user-attachments/assets/dea126c0-19cc-4522-be1d-2832112d1ffa" />
 
 
 \## 👨‍💻 Autor
@@ -225,4 +232,14 @@ Universidad Central del Ecuador
 Metodología de la Investigación  
 
 \*Proyecto académico — 2026\*
+
+<img width="365" height="802" alt="login_actualizado" src="https://github.com/user-attachments/assets/5c6f8475-1276-46b6-a9fd-abfb28e395b8" />
+
+<img width="753" height="355" alt="pantallaprincipal" src="https://github.com/user-attachments/assets/a93c28bd-4dff-4b59-9b5b-660073a3a887" />
+
+
+
+<img width="720" height="1600" alt="detalles" src="https://github.com/user-attachments/assets/dea126c0-19cc-4522-be1d-2832112d1ffa" />
+
+
 
