@@ -214,11 +214,18 @@ Ejecutar la aplicación en un emulador o dispositivo físico
 
 \---
 
+
+\## Pantalla Login
+
 <img width="365" height="802" alt="login_actualizado" src="https://github.com/user-attachments/assets/5c6f8475-1276-46b6-a9fd-abfb28e395b8" />
+
+
+\## Pantalla principal
 
 <img width="753" height="355" alt="pantallaprincipal" src="https://github.com/user-attachments/assets/a93c28bd-4dff-4b59-9b5b-660073a3a887" />
 
 
+\## Pantalla Detalle
 
 <img width="720" height="1600" alt="detalles" src="https://github.com/user-attachments/assets/dea126c0-19cc-4522-be1d-2832112d1ffa" />
 
