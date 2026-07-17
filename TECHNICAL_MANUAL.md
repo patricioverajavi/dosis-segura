@@ -138,6 +138,7 @@ Representa la información detallada de cada medicamento almacenado en la aplica
 | contraindicaciones | String | Restricciones de uso o posibles riesgos del medicamento. |
 | advertencias | String | Precauciones adicionales antes de utilizar el medicamento. |
 | categoria | String | Categoría terapéutica a la que pertenece el medicamento. |
+
 #### ⭐ Favoritos
 
 Representa la relación entre un usuario y los medicamentos que ha marcado como favoritos.
