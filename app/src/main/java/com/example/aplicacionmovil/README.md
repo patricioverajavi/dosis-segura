@@ -116,11 +116,16 @@ Ejecutar la aplicación en un emulador o dispositivo físico
 
 ---
 ## 📱 Capturas de Pantalla
-| Pantalla Login | Pantalla Principal | Detalle Medicamento |
-| :---: | :---: | :---: |
-| ![login_actualizado.png](../../../../../../../../../../Im%C3%A1genes/Screenshots/login_actualizado.png)<img src="URL_IMAGEN_LOGIN" width="200" /> | ![img.png](img.png)<img src="URL_IMAGEN_INICIO" width="200" /> | ![img_1.png](img_1.png)<img src="URL_IMAGEN_DETALLE" width="200" /> |
----
 
+**Pantalla Login**  
+<img src="https://github.com/user-attachments/assets/5c6f8475-1276-46b6-a9fd-abfb28e395b8" width="300" />
+
+**Pantalla Principal**  
+<img src="https://github.com/user-attachments/assets/a93c28bd-4dff-4b59-9b5b-660073a3a887" width="300" />
+
+**Detalle Medicamento**  
+<img src="https://github.com/user-attachments/assets/dea126c0-19cc-4522-be1d-2832112d1ffa" width="300" />
+---
 ## 👨‍💻 Autor
 Patricio Javier Vera Fernández  
 Universidad Central del Ecuador  

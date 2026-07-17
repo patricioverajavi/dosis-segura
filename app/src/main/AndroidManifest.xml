@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        tools:targetApi="31"
         android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,6 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AplicacionMovil">
+
+        <profileable android:shell="true" />
 
         <activity
             android:name=".LoginActivity"
