@@ -120,21 +120,24 @@ Representa a la persona que utiliza la aplicación y accede a las funcionalidade
 
 | Campo | Tipo | Descripción |
 |-------|------|-------------|
-| nombre | String | Nombre completo del usuario. |
-| correo | String | Correo electrónico único utilizado para iniciar sesión. |
-| contraseña | String | Contraseña de acceso del usuario. |
-
+| correo | String | Correo electrónico utilizado como identificador único para el acceso a la aplicación. |
+| contraseña | String | Credencial de seguridad del usuario con validación de longitud mínima requerida. |
 #### 💊 Medicamento
 
-Representa la información de cada medicamento disponible en el catálogo de la aplicación.
+Representa la información detallada de cada medicamento almacenado en la aplicación.
 
 | Campo | Tipo | Descripción |
 |-------|------|-------------|
 | nombre | String | Nombre comercial del medicamento. |
-| descripcion | String | Descripción general del medicamento. |
-| dosis | String | Dosis recomendada de uso. |
-| categoria | String | Categoría terapéutica (Analgésicos, Antibióticos, Vitaminas). |
-
+| descripcion | String | Descripción o efecto principal del medicamento. |
+| dosis | String | Frecuencia y cantidad de administración recomendada. |
+| presentacion | String | Tipo de empaque o cantidad por caja del medicamento. |
+| principioActivo | String | Sustancia química base responsable del efecto del fármaco. |
+| laboratorio | String | Fabricante o marca farmacéutica del medicamento. |
+| indicaciones | String | Lista de usos, enfermedades o síntomas a tratar. |
+| contraindicaciones | String | Restricciones de uso o posibles riesgos del medicamento. |
+| advertencias | String | Precauciones adicionales antes de utilizar el medicamento. |
+| categoria | String | Categoría terapéutica a la que pertenece el medicamento. |
 #### ⭐ Favoritos
 
 Representa la relación entre un usuario y los medicamentos que ha marcado como favoritos.
@@ -217,52 +220,79 @@ de configuración externos. Los datos de medicamentos
 están incluidos directamente en el código.
 
 ---
-## 6. Estructura del repositorio
 
-```text
-dosis-segura/
-├── app/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/
-│   │   │   │   └── com/example/aplicacionmovil/
-│   │   │   │       ├── LoginActivity.java
-│   │   │   │       ├── MainActivity.java
-│   │   │   │       ├── RegistroActivity.java
-│   │   │   │       ├── PerfilActivity.java
-│   │   │   │       ├── FavoritosActivity.java
-│   │   │   │       ├── Medicamento.java
-│   │   │   │       ├── MedicamentoAdapter.java
-│   │   │   │       ├── MedicamentoRepository.java
-│   │   │   │       ├── MedicamentoViewModel.java
-│   │   │   │       ├── Usuario.java
-│   │   │   │       ├── UsuarioDao.java
-│   │   │   │       ├── MedicamentoDao.java
-│   │   │   │       ├── RetrofitClient.java
-│   │   │   │       ├── NotificationHelper.java
-│   │   │   │       └── NotificationWorker.java
-│   │   │   ├── res/
-│   │   │   │   ├── layout/
-│   │   │   │   │   ├── activity_login.xml
-│   │   │   │   │   ├── activity_main.xml
-│   │   │   │   │   ├── activity_registro.xml
-│   │   │   │   │   ├── activity_perfil.xml
-│   │   │   │   │   ├── activity_favoritos.xml
-│   │   │   │   │   ├── activity_detalle_medicamento.xml
-│   │   │   │   │   ├── activity_agregar_medicamento.xml
-│   │   │   │   │   └── item_medicamento.xml
-│   │   │   │   ├── drawable/
-│   │   │   │   ├── mipmap/
-│   │   │   │   └── values/
-│   │   │   │       ├── colors.xml
-│   │   │   │       ├── strings.xml
-│   │   │   │       └── themes.xml
-│   │   │   └── AndroidManifest.xml
-│   └── build.gradle.kts
-├── README.md
-├── TECHNICAL_MANUAL.md
-└── build.gradle.kts
-```
+# 6. Estructura del Proyecto: DosisSegura
+
+## Directorio de Código Fuente (`app/src/main/java/com/example/aplicacionmovil/`)
+
+### Actividades (UI)
+
+- `LoginActivity.java`: Manejo de autenticación de usuarios.
+- `MainActivity.java`: Pantalla principal de la aplicación.
+- `RegistroActivity.java`: Registro de nuevos usuarios.
+- `PerfilActivity.java`: Administración del perfil del usuario.
+- `FavoritosActivity.java`: Visualización de medicamentos favoritos.
+- `AgregarMedicamentoActivity.java`: Registro de nuevos medicamentos.
+- `DetalleMedicamentoActivity.java`: Consulta de la información detallada de un medicamento.
+- `FdaActivity.java`: Consulta de información desde la API de la FDA.
+
+### Modelos
+
+- `Medicamento.java`: Modelo que representa un medicamento.
+- `Usuario.java`: Modelo que representa a un usuario.
+- `FdaResponse.java`: Modelo para la respuesta de la API FDA.
+- `ApiState.java`: Representa el estado de las consultas a la API.
+
+### Persistencia de Datos
+
+- `AppDatabase.java`: Configuración de la base de datos Room.
+- `MedicamentoDao.java`: Operaciones CRUD para medicamentos.
+- `UsuarioDao.java`: Operaciones CRUD para usuarios.
+- `MedicamentoRepository.java`: Repositorio que centraliza el acceso a los datos.
+
+### Lógica de Negocio
+
+- `MedicamentoViewModel.java`: Gestiona la información de medicamentos para la interfaz.
+- `FdaViewModel.java`: Gestiona la consulta de datos de la FDA.
+- `MedicamentoValidator.java`: Valida la información ingresada por el usuario.
+
+### Adaptadores y Servicios
+
+- `MedicamentoAdapter.java`: Adaptador del RecyclerView para medicamentos.
+- `FdaAdapter.java`: Adaptador del RecyclerView para resultados de la FDA.
+- `RetrofitClient.java`: Configuración del cliente HTTP.
+- `FdaApiService.java`: Definición de los servicios REST de la API FDA.
+
+### Notificaciones
+
+- `NotificationHelper.java`: Gestión de canales y envío de notificaciones.
+- `NotificationWorker.java`: Ejecución de tareas programadas en segundo plano.
+
+---
+
+## Directorio de Recursos (`app/src/main/res/`)
+
+### Layout
+
+Contiene los archivos XML que definen las interfaces de usuario (`activity_*.xml` e `item_*.xml`).
+
+### Drawable
+
+Recursos gráficos utilizados por la aplicación, como fondos, iconos y selectores.
+
+### Mipmap
+
+Iconos de lanzamiento de la aplicación para diferentes densidades de pantalla.
+
+### Values
+
+Archivos de configuración como `colors.xml`, `strings.xml` y `themes.xml`.
+
+### XML
+
+Archivos de configuración del sistema, como reglas de respaldo y configuración de seguridad de red.
+
+---
 ### Descripción de carpetas principales
 
 | Carpeta | Contenido |
