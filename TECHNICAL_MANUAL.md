@@ -133,7 +133,7 @@ Representa la información de cada medicamento disponible en el catálogo de la 
 | nombre | String | Nombre comercial del medicamento. |
 | descripcion | String | Descripción general del medicamento. |
 | dosis | String | Dosis recomendada de uso. |
-| categoria | String | Categoría terapéutica (Analgésicos, Antibióticos, Vitaminas, etc.). |
+| categoria | String | Categoría terapéutica (Analgésicos, Antibióticos, Vitaminas). |
 
 #### ⭐ Favoritos
 
