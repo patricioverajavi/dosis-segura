@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.aplicacionMovil"
+        applicationId = "com.example.aplicacionmovil"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

@@ -27,28 +27,38 @@ La aplicación no incluye venta, pedidos ni entregas
 de medicamentos.
 
 ---
-
 ## 2. Arquitectura de la aplicación
 
 ### Diagrama de capas
-┌─────────────────────────────────┐
-│           CAPA UI               │
-│  Activities + Layouts XML       │
-│  LoginActivity, MainActivity    │
-│  activity_login.xml             │
-│  activity_main.xml              │
-│  item_medicamento.xml           │
-├─────────────────────────────────┤
-│         CAPA LÓGICA             │
-│  Adapters + Clases de negocio   │
-│  MedicamentoAdapter             │
-│  Lógica de búsqueda y filtrado  │
-├─────────────────────────────────┤
-│          CAPA DATOS             │
-│  Listas en memoria con          │
-│  ArrayList<Medicamento>         │
-│  Clase modelo: Medicamento      │
-└─────────────────────────────────┘
+
+```text
+┌──────────────────────────────────────┐
+│               CAPA UI                │
+├──────────────────────────────────────┤
+│ Activities + Layouts XML             │
+│ • LoginActivity                      │
+│ • MainActivity                       │
+│ • activity_login.xml                 │
+│ • activity_main.xml                  │
+│ • item_medicamento.xml               │
+└──────────────────────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────┐
+│            CAPA LÓGICA               │
+├──────────────────────────────────────┤
+│ • MedicamentoAdapter                 │
+│ • Lógica de búsqueda y filtrado      │
+└──────────────────────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────┐
+│            CAPA DATOS                │
+├──────────────────────────────────────┤
+│ • ArrayList<Medicamento>             │
+│ • Clase modelo: Medicamento          │
+└──────────────────────────────────────┘
+```
 ### Descripción de capas
 
 **Capa UI:** Contiene todas las Activities y archivos
@@ -76,40 +86,63 @@ La aplicación sigue un patrón **MVC simplificado**:
 ## 3. Modelo de datos
 
 ### Diagrama de entidades
-┌─────────────────────┐      ┌─────────────────────┐
-│      USUARIO        │      │    MEDICAMENTO      │
-├─────────────────────┤      ├─────────────────────┤
-│ nombre: String      │      │ nombre: String      │
-│ correo: String      │  1:N │ descripcion: String │
-│ contraseña: String  │─────▶│ dosis: String       │
-└─────────────────────┘      │ categoria: String   │
-└─────────────────────┘
-│
-│ N:M
-▼
-┌─────────────────────┐
-│     FAVORITOS       │
-├─────────────────────┤
-│ usuario: String     │
-│ medicamento: String │
-└─────────────────────┘
+## Diagrama de clases
+
+```mermaid
+classDiagram
+
+class Usuario{
+    +String nombre
+    +String correo
+    +String contraseña
+}
+
+class Medicamento{
+    +String nombre
+    +String descripcion
+    +String dosis
+    +String categoria
+}
+
+class Favoritos{
+    +String usuario
+    +String medicamento
+}
+
+Usuario "1" --> "N" Medicamento
+Usuario "N" --> "M" Favoritos
+```
 ### Descripción de entidades
 
-**Usuario**
-| Campo | Tipo | Descripción |
-|---|---|---|
-| nombre | String | Nombre completo del usuario |
-| correo | String | Correo electrónico único |
-| contraseña | String | Contraseña de acceso |
+#### 👤 Usuario
 
-**Medicamento**
-| Campo | Tipo | Descripción |
-|---|---|---|
-| nombre | String | Nombre comercial del medicamento |
-| descripcion | String | Descripción general del medicamento |
-| dosis | String | Dosis recomendada de uso |
-| categoria | String | Categoría terapéutica |
+Representa a la persona que utiliza la aplicación y accede a las funcionalidades mediante autenticación.
 
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| nombre | String | Nombre completo del usuario. |
+| correo | String | Correo electrónico único utilizado para iniciar sesión. |
+| contraseña | String | Contraseña de acceso del usuario. |
+
+#### 💊 Medicamento
+
+Representa la información de cada medicamento disponible en el catálogo de la aplicación.
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| nombre | String | Nombre comercial del medicamento. |
+| descripcion | String | Descripción general del medicamento. |
+| dosis | String | Dosis recomendada de uso. |
+| categoria | String | Categoría terapéutica (Analgésicos, Antibióticos, Vitaminas, etc.). |
+
+#### ⭐ Favoritos
+
+Representa la relación entre un usuario y los medicamentos que ha marcado como favoritos.
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| usuario | String | Correo o identificador del usuario propietario del favorito. |
+| medicamento | String | Nombre del medicamento guardado como favorito. |
 ### Relaciones
 - Un usuario puede guardar muchos medicamentos
   en favoritos
@@ -184,33 +217,52 @@ de configuración externos. Los datos de medicamentos
 están incluidos directamente en el código.
 
 ---
-
 ## 6. Estructura del repositorio
+
+```text
 dosis-segura/
 ├── app/
 │   ├── src/
 │   │   ├── main/
-│   │   │   ├── java/com/example/aplicacionmovil/
-│   │   │   │   ├── LoginActivity.kt
-│   │   │   │   ├── MainActivity.kt
-│   │   │   │   ├── Medicamento.kt
-│   │   │   │   └── MedicamentoAdapter.kt
+│   │   │   ├── java/
+│   │   │   │   └── com/example/aplicacionmovil/
+│   │   │   │       ├── LoginActivity.java
+│   │   │   │       ├── MainActivity.java
+│   │   │   │       ├── RegistroActivity.java
+│   │   │   │       ├── PerfilActivity.java
+│   │   │   │       ├── FavoritosActivity.java
+│   │   │   │       ├── Medicamento.java
+│   │   │   │       ├── MedicamentoAdapter.java
+│   │   │   │       ├── MedicamentoRepository.java
+│   │   │   │       ├── MedicamentoViewModel.java
+│   │   │   │       ├── Usuario.java
+│   │   │   │       ├── UsuarioDao.java
+│   │   │   │       ├── MedicamentoDao.java
+│   │   │   │       ├── RetrofitClient.java
+│   │   │   │       ├── NotificationHelper.java
+│   │   │   │       └── NotificationWorker.java
 │   │   │   ├── res/
 │   │   │   │   ├── layout/
 │   │   │   │   │   ├── activity_login.xml
 │   │   │   │   │   ├── activity_main.xml
+│   │   │   │   │   ├── activity_registro.xml
+│   │   │   │   │   ├── activity_perfil.xml
+│   │   │   │   │   ├── activity_favoritos.xml
+│   │   │   │   │   ├── activity_detalle_medicamento.xml
+│   │   │   │   │   ├── activity_agregar_medicamento.xml
 │   │   │   │   │   └── item_medicamento.xml
 │   │   │   │   ├── drawable/
-│   │   │   │   │   └── input_background.xml
+│   │   │   │   ├── mipmap/
 │   │   │   │   └── values/
 │   │   │   │       ├── colors.xml
 │   │   │   │       ├── strings.xml
 │   │   │   │       └── themes.xml
 │   │   │   └── AndroidManifest.xml
 │   └── build.gradle.kts
-├── TECHNICAL_MANUAL.md
 ├── README.md
+├── TECHNICAL_MANUAL.md
 └── build.gradle.kts
+```
 ### Descripción de carpetas principales
 
 | Carpeta | Contenido |
