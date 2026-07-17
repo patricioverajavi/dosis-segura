@@ -16,19 +16,14 @@ Diseñar una aplicación Android que permita a los usuarios consultar un catálo
 
 \---
 
-\## 👤 Historias de Usuario — MVP
+## 🛠 Tecnología Usada
 
-| # | Historia de Usuario | Prioridad |
-
-| :--- | :--- | :--- |
-
-| HU-01 | Buscar un medicamento por nombre para encontrarlo rápidamente | Alta |
-
-| HU-02 | Filtrar por categoría (Analgésicos, Antibióticos, Vitaminas) | Alta |
-
-| HU-03 | Ver detalle con dosis e indicaciones | Alta |
-
-| HU-04 | Guardar medicamentos en favoritos | Media |
+| Tecnología | Uso |
+|------------|-----|
+| Android | Plataforma de desarrollo móvil |
+| Material Design 3 | Sistema de diseño de componentes UI |
+| Figma | Diseño y prototipado de interfaces |
+| Uizard AI | Generación inicial de pantallas con IA |
 
 \---
 
